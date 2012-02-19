@@ -324,7 +324,12 @@ public class AussieWeatherRadar extends Activity {
 				animationVG.removeAllViews();
 				timeVG.removeAllViews();
 
-				ArrayList<String> animationLink = msg.getData().getStringArrayList("aniLink");
+				ArrayList<String> animationLink = msg.getData()
+						.getStringArrayList("aniLink");
+				if (animationLink.isEmpty()) {
+					progressText.setText(getString(R.string.cannot_connect));
+					setProgessVisibility(View.VISIBLE);
+				} else {
 
 				View lastView = null;
 				for (int i = 0; i < animationLink.size(); i++) {
@@ -343,6 +348,7 @@ public class AussieWeatherRadar extends Activity {
 				animationVG.startFlipping();
 				
 				hideProgressViews();
+				}
 			}
 		};
 		aniRunnable = new AnimationRunnable(productCode, toastHandler);

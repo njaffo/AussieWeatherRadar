@@ -9,5 +9,6 @@
     <string name="km256">256 KM</string>
     <string name="km512">512 KM</string>
     <string name="map">Map</string>
+    <string name="cannot_connect">Not Connected</string>
     
 </resources>
