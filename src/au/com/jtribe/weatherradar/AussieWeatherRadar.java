@@ -24,6 +24,7 @@ import java.util.TimeZone;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -277,8 +278,16 @@ public class AussieWeatherRadar extends Activity {
 	}
 	
 	private void setProgessVisibility(int visibility) {
+		this.progressText.setText(R.string.loading);
 		this.progressText.setVisibility(visibility);
 		this.progressBar.setVisibility(visibility);
+	}
+
+	private void showNoConnectivity() {
+		progressText.setText(R.string.cannot_connect);
+		progressText.setVisibility(View.VISIBLE);
+		progressBar.setVisibility(View.GONE);
+		CacheDialogPreference.deleteCache(DialogInterface.BUTTON_POSITIVE);
 	}
 
 	private void refreshCurrentConditions(final String productCode) {
@@ -327,8 +336,7 @@ public class AussieWeatherRadar extends Activity {
 				ArrayList<String> animationLink = msg.getData()
 						.getStringArrayList("aniLink");
 				if (animationLink.isEmpty()) {
-					progressText.setText(getString(R.string.cannot_connect));
-					setProgessVisibility(View.VISIBLE);
+					showNoConnectivity();
 				} else {
 
 				View lastView = null;
